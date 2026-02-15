@@ -620,11 +620,25 @@
     <script>
         // Language toggle
         function setLanguage(lang) {
-            document.body.className = lang;
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
+    document.body.className = lang;
+    
+    // Update button states
+    const buttons = document.querySelectorAll('.lang-btn');
+    buttons.forEach(btn => {
+        btn.classList.remove('active');
+        if ((lang === 'ta' && btn.textContent === 'தமிழ்') || 
+            (lang === 'en' && btn.textContent === 'English')) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Update HTML lang attribute
+    document.documentElement.lang = lang;
+    
+    // Save preference
+    localStorage.setItem('preferredLanguage', lang);
+}
+    
             
             // Update HTML lang attribute
             document.documentElement.lang = lang;
